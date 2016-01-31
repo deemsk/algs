@@ -72,9 +72,6 @@ cmd.on('line', (line) => {
                 if (typeof result !== 'undefined') {
                     console.log(result);
                 }
-                if (parsedLine.command === 'union') {
-                    elements.print();
-                }
             }
             else {
                 console.error(`Command "${parsedLine.command}" doesn't exist`);
