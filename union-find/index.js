@@ -3,7 +3,7 @@
 const readline = require('readline');
 const fs = require('fs');
 const colors = require('colors');
-const FindUnion = require('./union-find');
+const UnionFind = require('./union-find');
 
 
 function parseLine(line) {
@@ -51,8 +51,10 @@ cmd.question('Enter the size of the set: ', (answer) => {
     }
     else {
         console.log(`N = ${answer}`);
-        elements = new FindUnion(n);
-        elements.print();
+        elements = new UnionFind(n);
+        if (n < 50) {
+            elements.print();
+        }
     }
     cmd.prompt();
 });

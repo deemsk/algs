@@ -1,11 +1,15 @@
 'use strict';
 
-function FindUnion(n) {
-    this.items = Array.apply(null, { length: n }).map(Function.call, Number);
+function UnionFind(n) {
+    // this.items = Array.apply(null, { length: n }).map(Function.call, Number);
+    this.items = [];
+    for (var i = 0; i < n; i++) {
+        this.items[i] = i;
+    }
     this.size = [];
 }
 
-FindUnion.prototype = {
+UnionFind.prototype = {
 
     connected(p, q) {
         return this._root(p) === this._root(q);
@@ -48,4 +52,4 @@ FindUnion.prototype = {
     }
 };
 
-module.exports = FindUnion;
+module.exports = UnionFind;
