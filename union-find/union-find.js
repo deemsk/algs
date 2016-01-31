@@ -2,6 +2,7 @@
 
 function FindUnion(n) {
     this.items = Array.apply(null, { length: n }).map(Function.call, Number);
+    this.size = [];
 }
 
 FindUnion.prototype = {
@@ -18,8 +19,18 @@ FindUnion.prototype = {
     },
 
     union(p, q) {
-        if (!this.connected(p, q)) {
-            this.items[this._root(p)] = this._root(q);
+        const i = this._root(p);
+        const j = this._root(q);
+        if (i === j) {
+            return;
+        }
+        if (this.size[i] < this.size[j]) {
+            this.items[i] = j;
+            this.size[j] += this.size[i];
+        }
+        else {
+            this.items[j] = i;
+            this.size[i] += this.size[j];
         }
     },
 
