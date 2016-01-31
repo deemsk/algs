@@ -13,6 +13,7 @@ FindUnion.prototype = {
 
     _root(i) {
         while (this.items[i] !== i) {
+            this.items[i] = this.items[this.items[i]];
             i = this.items[i];
         }
         return i;
