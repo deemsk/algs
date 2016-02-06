@@ -1,3 +1,5 @@
+'use strict';
+
 function outOfBoundariesCheck(i, j) {
     if (
         (i < 1 || i > this.n) ||

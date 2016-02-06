@@ -1,7 +1,6 @@
 'use strict';
 
-function UnionFind(n) {
-    // this.items = Array.apply(null, { length: n }).map(Function.call, Number);
+function UFWeighted(n) {
     this.items = [];
     for (var i = 0; i < n; i++) {
         this.items[i] = i;
@@ -9,7 +8,7 @@ function UnionFind(n) {
     this.size = [];
 }
 
-UnionFind.prototype = {
+UFWeighted.prototype = {
 
     connected(p, q) {
         return this._root(p) === this._root(q);
@@ -52,4 +51,4 @@ UnionFind.prototype = {
     }
 };
 
-module.exports = UnionFind;
+module.exports = UFWeighted;

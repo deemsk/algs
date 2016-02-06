@@ -3,7 +3,7 @@
 const readline = require('readline');
 const fs = require('fs');
 const colors = require('colors');
-const UnionFind = require('./union-find');
+const UnionFind = require('../alg-modules/uf-weighted');
 
 
 function parseLine(line) {
