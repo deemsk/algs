@@ -40,6 +40,15 @@ const cmd = readline.createInterface({
     output: process.stdout
 });
 
+function print(items) {
+    function format(list) {
+        const sep = ' '.repeat(3);
+        return sep + list.join(sep) + sep;
+    }
+
+    console.log(format(Object.keys(items)));
+    console.log(format(items).green);
+}
 
 cmd.setPrompt('> ');
 
@@ -53,7 +62,7 @@ cmd.question('Enter the size of the set: ', (answer) => {
         console.log(`N = ${answer}`);
         elements = new UnionFind(n);
         if (n < 50) {
-            elements.print();
+            print(elements.items);
         }
     }
     cmd.prompt();
@@ -67,6 +76,10 @@ cmd.on('line', (line) => {
         case 'exit':
             cmd.close();
             return;
+
+        case 'print':
+            print(elements.items);
+            break;
 
         default:
             if (typeof elements[parsedLine.command] === 'function') {

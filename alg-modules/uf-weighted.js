@@ -9,7 +9,6 @@ function UFWeighted(n) {
 }
 
 UFWeighted.prototype = {
-
     connected(p, q) {
         return this._root(p) === this._root(q);
     },
@@ -36,18 +35,6 @@ UFWeighted.prototype = {
             this.items[j] = i;
             this.size[i] += this.size[j];
         }
-    },
-
-    print() {
-        let sz = [];
-
-        function format(list) {
-            const sep = ' '.repeat(3);
-            return sep + list.join(sep) + sep;
-        }
-
-        console.log(format(Object.keys(this.items)));
-        console.log(format(this.items).green);
     }
 };
 
