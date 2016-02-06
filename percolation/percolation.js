@@ -12,7 +12,13 @@ function Percolation(n) {
         throw new Error('Illegal argument: "n" cannot be lesser than 1');
     }
     this.n = n;
-    this.items = Array.apply();
+    this.items = [];
+    for (var i = 0; i < this.n; i++) {
+        this.items[i] = [];
+        for (var j = 0; j < this.n; j++) {
+            this.items[i][j] = i * this.n + j;
+        }
+    }
 }
 
 Percolation.prototype = {
@@ -29,6 +35,6 @@ Percolation.prototype = {
     },
 
     percolates() {}
-}
+};
 
 module.exports = Percolation;

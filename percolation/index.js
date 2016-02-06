@@ -17,13 +17,33 @@ const cmd = readline.createInterface({
 let dataSet;
 
 
-function print(arr) {
-    const len = arr.length;
-    console.log('\u00B7'.repeat(len));
+function print(arr, debug) {
+    arr.forEach(item => {
+        if (Number.isInteger(item)) {
+            if (!debug) {
+                cmd.write(' \u25FC '.grey);
+            }
+            else {
+                const str = item.toString();
+                const width = 3;
+                cmd.write(' '.repeat(width - str.length) + str);
+            }
+        }
+        else {
+            cmd.write('\n');
+            print(item);
+        }
+    });
 }
 
 cmd.question('Enter the size of the set: ', (answer) => {
-    const n = parseInt(answer);
+    let n;
+    if (!answer.length) {
+        n = 5; // default
+    }
+    else {
+        n = parseInt(answer, 10);
+    }
 
     if (isNaN(n)) {
         console.error('You entered not a number.');
@@ -32,5 +52,7 @@ cmd.question('Enter the size of the set: ', (answer) => {
         console.log(`N = ${answer}`);
         dataSet = new Percolation(n);
         print(dataSet.items);
+        cmd.write('\n\n');
+        cmd.close();
     }
 });
