@@ -15,31 +15,62 @@ const cmd = readline.createInterface({
 });
 
 let dataSet;
+let n;
 
+function print(debug) {
+    const width = 3;
 
-function print(arr, debug) {
-    arr.forEach(item => {
-        if (Number.isInteger(item)) {
-            if (!debug) {
-                cmd.write(' \u25FC '.grey);
-            }
-            else {
-                const str = item.toString();
-                const width = 3;
-                cmd.write(' '.repeat(width - str.length) + str);
-            }
+    for (var i = 0; i < n * n; i++) {
+        const value = dataSet.nodes.items[i];
+        let str;
+
+        if (value === undefined) {
+            str = '  \u00B7'.grey;
+        }
+        else if (debug) {
+            str = value.toString();
+            str = ' '.repeat(width - str.length) + str;
         }
         else {
-            cmd.write('\n');
-            print(item);
+            str = '  \u25FC'.green;
         }
-    });
+
+        cmd.write(str);
+        if ((i + 1) % n === 0) {
+            cmd.write('\n');
+        }
+    }
+}
+
+function fillRandomly(num) {
+    const size = n * n;
+    let sites = [];
+
+    if (num > size) {
+        num = size;
+    }
+
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            sites.push([i, j]);
+        }
+    }
+
+    while (sites.length > size - num) {
+        try {
+            const i = Math.floor(Math.random() * sites.length);
+            const coords = sites.splice(i, 1)[0];
+            dataSet.open(...coords);
+        } catch (e) {
+            console.error(e.message);
+            break;
+        }
+    }
 }
 
 cmd.question('Enter the size of the set: ', (answer) => {
-    let n;
     if (!answer.length) {
-        n = 5; // default
+        n = 10; // default
     }
     else {
         n = parseInt(answer, 10);
@@ -49,9 +80,10 @@ cmd.question('Enter the size of the set: ', (answer) => {
         console.error('You entered not a number.');
     }
     else {
-        console.log(`N = ${answer}`);
+        console.log(`N = ${n}`);
         dataSet = new Percolation(n);
-        print(dataSet.items);
+        fillRandomly(14);
+        print(false);
         cmd.write('\n\n');
         cmd.close();
     }
